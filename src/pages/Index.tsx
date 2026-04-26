@@ -5,6 +5,20 @@ const HERO_IMG = "https://cdn.poehali.dev/projects/21820c95-417d-44df-b287-ba531
 const STUDENTS_IMG = "https://cdn.poehali.dev/projects/21820c95-417d-44df-b287-ba5315d2e9c2/files/069472d7-c674-43e7-be69-f5c9cc521c06.jpg";
 const LECTURE_IMG = "https://cdn.poehali.dev/projects/21820c95-417d-44df-b287-ba5315d2e9c2/files/fe3605e0-7b87-48ff-af98-44ce5e675060.jpg";
 
+const C = {
+  blue: "var(--uni-blue)",
+  blueLight: "var(--uni-blue-light)",
+  red: "var(--uni-red)",
+  gold: "var(--uni-gold)",
+  green: "var(--uni-green)",
+  border: "var(--uni-border)",
+  text: "#0d1b2e",
+  muted: "#4a6080",
+  bg: "#f0f4f8",
+  bgAlt: "#e8eef5",
+  white: "#ffffff",
+};
+
 const navLinks = [
   { id: "about", label: "О университете" },
   { id: "programs", label: "Программы" },
@@ -17,18 +31,18 @@ const navLinks = [
 ];
 
 const stats = [
-  { value: "12 000+", label: "Студентов" },
-  { value: "800+", label: "Преподавателей" },
-  { value: "120+", label: "Программ" },
-  { value: "30+", label: "Лет опыта" },
+  { value: "35 000+", label: "Студентов" },
+  { value: "3 000+", label: "Преподавателей" },
+  { value: "150+", label: "Программ" },
+  { value: "20+", label: "Лет опыта" },
 ];
 
 const programs = [
-  { icon: "Code", title: "Информационные технологии", desc: "Программирование, ИИ, кибербезопасность", badge: "Топ выбор", color: "var(--uni-blue)" },
+  { icon: "Code", title: "Информационные технологии", desc: "Программирование, ИИ, кибербезопасность", badge: "Топ выбор", color: C.blue },
   { icon: "TrendingUp", title: "Экономика и менеджмент", desc: "Бизнес, финансы, маркетинг, MBA", badge: "", color: "#7c3aed" },
-  { icon: "Microscope", title: "Науки о жизни", desc: "Биотехнологии, медицина, фармацевтика", badge: "Новая", color: "var(--uni-green)" },
-  { icon: "Palette", title: "Дизайн и медиа", desc: "Графика, UX/UI, медиапроизводство", badge: "", color: "var(--uni-gold)" },
-  { icon: "Scale", title: "Юриспруденция", desc: "Международное право, корпоративное право", badge: "", color: "var(--uni-red)" },
+  { icon: "Microscope", title: "Науки о жизни", desc: "Биотехнологии, медицина, фармацевтика", badge: "Новая", color: C.green },
+  { icon: "Palette", title: "Дизайн и медиа", desc: "Графика, UX/UI, медиапроизводство", badge: "", color: C.gold },
+  { icon: "Scale", title: "Юриспруденция", desc: "Международное право, корпоративное право", badge: "", color: C.red },
   { icon: "Globe", title: "Международные отношения", desc: "Дипломатия, политология, глобалистика", badge: "", color: "#0891b2" },
 ];
 
@@ -84,7 +98,6 @@ export default function Index() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 60);
-
       const sections = navLinks.map((l) => document.getElementById(l.id));
       const current = sections.findIndex((s) => {
         if (!s) return false;
@@ -93,7 +106,6 @@ export default function Index() {
       });
       if (current >= 0) setActiveNav(navLinks[current].id);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -104,37 +116,44 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen font-golos" style={{ background: "#f0f4f8", color: "var(--uni-text)" }}>
+    <div className="min-h-screen font-golos" style={{ background: C.bg, color: C.text }}>
 
       {/* ─── NAVBAR ─── */}
       <nav
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
-          background: scrolled ? "rgba(8,13,22,0.95)" : "transparent",
+          background: scrolled ? "rgba(255,255,255,0.95)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: scrolled ? "1px solid var(--uni-border)" : "none",
+          borderBottom: scrolled ? `1px solid ${C.border}` : "none",
+          boxShadow: scrolled ? "0 2px 20px rgba(21,101,192,0.08)" : "none",
         }}
       >
         <div className="container mx-auto px-6 flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
             <div
               className="w-9 h-9 rounded-lg flex items-center justify-center font-oswald font-bold text-sm"
-              style={{ background: "linear-gradient(135deg, var(--uni-cyan), var(--uni-purple))", color: "#fff" }}
+              style={{ background: `linear-gradient(135deg, ${C.blue}, ${C.blueLight})`, color: "#fff" }}
             >
-              A
+              С
             </div>
-            <span className="font-oswald font-bold text-xl tracking-wide" style={{ color: "var(--uni-cyan)" }}>
-              УНИВЕРСИТЕТ APEX
-            </span>
+            <div className="hidden sm:block">
+              <div className="font-oswald font-bold text-base leading-tight" style={{ color: C.blue }}>
+                СИБИРСКИЙ ФЕДЕРАЛЬНЫЙ
+              </div>
+              <div className="font-oswald text-xs tracking-widest uppercase" style={{ color: C.muted }}>
+                УНИВЕРСИТЕТ
+              </div>
+            </div>
+            <span className="sm:hidden font-oswald font-bold text-base" style={{ color: C.blue }}>СФУ</span>
           </div>
 
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-5">
             {navLinks.map((l) => (
               <button
                 key={l.id}
                 onClick={() => scrollTo(l.id)}
                 className="nav-link text-sm font-medium transition-all"
-                style={{ color: activeNav === l.id ? "var(--uni-cyan)" : "rgba(232,240,254,0.7)" }}
+                style={{ color: activeNav === l.id ? C.blue : C.muted }}
               >
                 {l.label}
               </button>
@@ -151,21 +170,21 @@ export default function Index() {
           <button
             className="lg:hidden p-2"
             onClick={() => setMenuOpen(!menuOpen)}
-            style={{ color: "var(--uni-cyan)" }}
+            style={{ color: C.blue }}
           >
             <Icon name={menuOpen ? "X" : "Menu"} size={24} />
           </button>
         </div>
 
         {menuOpen && (
-          <div className="lg:hidden glass border-t" style={{ borderColor: "var(--uni-border)" }}>
+          <div style={{ background: C.white, borderTop: `1px solid ${C.border}` }}>
             <div className="px-6 py-4 flex flex-col gap-3">
               {navLinks.map((l) => (
                 <button
                   key={l.id}
                   onClick={() => scrollTo(l.id)}
                   className="text-left py-2 text-sm font-medium nav-link w-fit"
-                  style={{ color: "rgba(232,240,254,0.8)" }}
+                  style={{ color: C.muted }}
                 >
                   {l.label}
                 </button>
@@ -189,34 +208,19 @@ export default function Index() {
       >
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${HERO_IMG})`,
-            filter: "brightness(0.25) saturate(0.8)",
-          }}
+          style={{ backgroundImage: `url(${HERO_IMG})`, filter: "brightness(0.45) saturate(0.9)" }}
         />
-
         <div
           className="absolute inset-0"
-          style={{
-            background: "linear-gradient(135deg, rgba(0,212,245,0.12) 0%, rgba(139,92,246,0.10) 50%, rgba(245,158,11,0.06) 100%)",
-          }}
+          style={{ background: "linear-gradient(135deg, rgba(13,27,46,0.6) 0%, rgba(21,101,192,0.3) 100%)" }}
         />
 
         <div
           className="absolute animate-float"
           style={{
-            width: 400, height: 400, borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(0,212,245,0.12) 0%, transparent 70%)",
-            top: "10%", right: "10%",
-          }}
-        />
-        <div
-          className="absolute animate-float"
-          style={{
-            width: 300, height: 300, borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)",
-            bottom: "15%", left: "5%",
-            animationDelay: "3s",
+            width: 500, height: 500, borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%)",
+            top: "5%", right: "5%",
           }}
         />
 
@@ -225,43 +229,40 @@ export default function Index() {
             <div
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium mb-6 animate-fade-in-up"
               style={{
-                background: "rgba(0,212,245,0.1)",
-                border: "1px solid rgba(0,212,245,0.3)",
-                color: "var(--uni-cyan)",
+                background: "rgba(255,255,255,0.15)",
+                border: "1px solid rgba(255,255,255,0.3)",
+                color: "#fff",
+                backdropFilter: "blur(10px)",
               }}
             >
-              <div className="w-2 h-2 rounded-full animate-pulse-glow" style={{ background: "var(--uni-cyan)" }} />
+              <div className="w-2 h-2 rounded-full animate-pulse-glow" style={{ background: "#fff" }} />
               Приём 2026 открыт
             </div>
 
             <h1
-              className="font-oswald font-bold mb-6 animate-fade-in-up delay-100"
-              style={{ fontSize: "clamp(3rem, 8vw, 6.5rem)", lineHeight: 1.05, letterSpacing: "-0.02em" }}
+              className="font-oswald font-bold mb-4 animate-fade-in-up delay-100"
+              style={{ fontSize: "clamp(2.2rem, 6vw, 5.5rem)", lineHeight: 1.05, letterSpacing: "-0.02em", color: "#fff" }}
             >
-              <span className="text-gradient">Знания,</span>{" "}
-              <br />
-              <span style={{ color: "#e8f0fe" }}>которые</span>
-              <br />
-              <span className="text-gradient-orange">меняют мир</span>
+              Сибирский<br />
+              <span style={{ color: "#90caf9" }}>Федеральный</span><br />
+              Университет
             </h1>
 
             <p
               className="text-lg mb-10 max-w-2xl animate-fade-in-up delay-200"
-              style={{ color: "rgba(232,240,254,0.65)", lineHeight: 1.7 }}
+              style={{ color: "rgba(255,255,255,0.8)", lineHeight: 1.7 }}
             >
-              Университет APEX — место, где передовая наука встречается с практикой. 120+ программ, 800 экспертов-преподавателей, партнёрства с лидерами индустрии.
+              Один из крупнейших университетов России. 150+ программ, 3000 экспертов-преподавателей, партнёрства с лидерами индустрии.
             </p>
 
             <div className="flex flex-wrap gap-4 animate-fade-in-up delay-300">
-              <button
-                onClick={() => scrollTo("programs")}
-                className="btn-primary px-8 py-4 rounded-xl text-base"
-              >
+              <button onClick={() => scrollTo("programs")} className="btn-primary px-8 py-4 rounded-xl text-base">
                 <span>Выбрать программу</span>
               </button>
               <button
                 onClick={() => scrollTo("about")}
-                className="btn-outline px-8 py-4 rounded-xl text-base"
+                className="px-8 py-4 rounded-xl text-base font-oswald font-medium transition-all"
+                style={{ border: "2px solid rgba(255,255,255,0.5)", color: "#fff", background: "rgba(255,255,255,0.1)", backdropFilter: "blur(8px)" }}
               >
                 О университете
               </button>
@@ -270,41 +271,36 @@ export default function Index() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-16 animate-fade-in-up delay-400">
               {stats.map((s) => (
                 <div key={s.label}>
-                  <div className="font-oswald font-bold text-3xl glow-text" style={{ color: "var(--uni-cyan)" }}>
-                    {s.value}
-                  </div>
-                  <div className="text-sm mt-1" style={{ color: "rgba(232,240,254,0.5)" }}>{s.label}</div>
+                  <div className="font-oswald font-bold text-3xl" style={{ color: "#90caf9" }}>{s.value}</div>
+                  <div className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.6)" }}>{s.label}</div>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce"
-          style={{ color: "var(--uni-cyan)", opacity: 0.6 }}
-        >
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce" style={{ color: "#fff", opacity: 0.7 }}>
           <Icon name="ChevronDown" size={28} />
         </div>
       </section>
 
       {/* ─── ABOUT ─── */}
-      <section id="about" className="py-24 mesh-bg">
+      <section id="about" className="py-24" style={{ background: C.white }}>
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: "var(--uni-cyan)" }}>
+              <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: C.blue }}>
                 О нас
               </div>
-              <h2 className="section-title text-5xl mb-6" style={{ color: "#e8f0fe" }}>
-                30 лет создаём<br />
+              <h2 className="section-title text-5xl mb-6" style={{ color: C.text }}>
+                20 лет создаём<br />
                 <span className="text-gradient">лидеров отрасли</span>
               </h2>
-              <p className="mb-6" style={{ color: "rgba(232,240,254,0.65)", lineHeight: 1.8 }}>
-                APEX — один из ведущих частных университетов России, аккредитованный в соответствии с международными стандартами. Мы объединяем фундаментальные науки с прикладными исследованиями и реальной практикой.
+              <p className="mb-6" style={{ color: C.muted, lineHeight: 1.8 }}>
+                Сибирский федеральный университет — крупнейший университет за Уралом, аккредитованный в соответствии с международными стандартами. Мы объединяем фундаментальные науки с прикладными исследованиями и реальной практикой.
               </p>
-              <p className="mb-8" style={{ color: "rgba(232,240,254,0.65)", lineHeight: 1.8 }}>
-                Наши выпускники работают в Google, Сбере, McKinsey, Газпроме и сотнях других компаний-лидеров. 94% трудоустраиваются в течение 6 месяцев после окончания.
+              <p className="mb-8" style={{ color: C.muted, lineHeight: 1.8 }}>
+                Наши выпускники работают в Роснефти, Сбере, Норникеле, РусГидро и сотнях других компаний. 94% трудоустраиваются в течение 6 месяцев после окончания.
               </p>
 
               <div className="grid grid-cols-2 gap-4">
@@ -312,19 +308,20 @@ export default function Index() {
                   { icon: "Award", text: "Государственная аккредитация" },
                   { icon: "Globe", text: "40 стран-партнёров" },
                   { icon: "Star", text: "Рейтинг ТОП-10 Forbes" },
-                  { icon: "BookOpen", text: "120+ образовательных программ" },
+                  { icon: "BookOpen", text: "150+ образовательных программ" },
                 ].map((item) => (
                   <div
                     key={item.text}
-                    className="flex items-center gap-3 p-3 rounded-xl glass"
+                    className="flex items-center gap-3 p-3 rounded-xl"
+                    style={{ background: C.bgAlt, border: `1px solid ${C.border}` }}
                   >
                     <div
                       className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{ background: "rgba(0,212,245,0.15)" }}
+                      style={{ background: "rgba(21,101,192,0.1)" }}
                     >
-                      <Icon name={item.icon } size={16} style={{ color: "var(--uni-cyan)" }} />
+                      <Icon name={item.icon} size={16} style={{ color: C.blue }} />
                     </div>
-                    <span className="text-sm" style={{ color: "rgba(232,240,254,0.8)" }}>{item.text}</span>
+                    <span className="text-sm font-medium" style={{ color: C.text }}>{item.text}</span>
                   </div>
                 ))}
               </div>
@@ -335,21 +332,21 @@ export default function Index() {
                 src={STUDENTS_IMG}
                 alt="Студенты"
                 className="rounded-2xl w-full object-cover"
-                style={{ height: 480, border: "1px solid var(--uni-border)" }}
+                style={{ height: 480, border: `1px solid ${C.border}` }}
               />
               <div
-                className="absolute -bottom-6 -left-6 glass rounded-2xl p-5"
-                style={{ border: "1px solid rgba(0,212,245,0.3)" }}
+                className="absolute -bottom-6 -left-6 rounded-2xl p-5"
+                style={{ background: C.white, border: `2px solid ${C.blue}`, boxShadow: "0 8px 30px rgba(21,101,192,0.15)" }}
               >
-                <div className="font-oswald text-3xl font-bold" style={{ color: "var(--uni-cyan)" }}>94%</div>
-                <div className="text-sm mt-1" style={{ color: "rgba(232,240,254,0.6)" }}>трудоустройство<br />выпускников</div>
+                <div className="font-oswald text-3xl font-bold" style={{ color: C.blue }}>94%</div>
+                <div className="text-sm mt-1" style={{ color: C.muted }}>трудоустройство<br />выпускников</div>
               </div>
               <div
-                className="absolute -top-6 -right-6 glass rounded-2xl p-5"
-                style={{ border: "1px solid rgba(139,92,246,0.3)" }}
+                className="absolute -top-6 -right-6 rounded-2xl p-5"
+                style={{ background: C.white, border: `2px solid ${C.red}`, boxShadow: "0 8px 30px rgba(211,47,47,0.12)" }}
               >
-                <div className="font-oswald text-3xl font-bold" style={{ color: "var(--uni-purple)" }}>№7</div>
-                <div className="text-sm mt-1" style={{ color: "rgba(232,240,254,0.6)" }}>в рейтинге<br />Forbes 2026</div>
+                <div className="font-oswald text-3xl font-bold" style={{ color: C.red }}>№7</div>
+                <div className="text-sm mt-1" style={{ color: C.muted }}>в рейтинге<br />Forbes 2026</div>
               </div>
             </div>
           </div>
@@ -357,16 +354,16 @@ export default function Index() {
       </section>
 
       {/* ─── PROGRAMS ─── */}
-      <section id="programs" className="py-24" style={{ background: "var(--uni-dark)" }}>
+      <section id="programs" className="py-24 mesh-bg">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: "var(--uni-cyan)" }}>
+            <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: C.blue }}>
               Образование
             </div>
-            <h2 className="section-title text-5xl mb-4" style={{ color: "#e8f0fe" }}>
+            <h2 className="section-title text-5xl mb-4" style={{ color: C.text }}>
               Программы обучения
             </h2>
-            <p style={{ color: "rgba(232,240,254,0.5)" }}>
+            <p style={{ color: C.muted }}>
               Бакалавриат, магистратура, аспирантура и профессиональная переподготовка
             </p>
           </div>
@@ -375,16 +372,13 @@ export default function Index() {
             {programs.map((p) => (
               <div
                 key={p.title}
-                className="card-hover glass rounded-2xl p-6 relative overflow-hidden cursor-pointer"
-                style={{ border: "1px solid var(--uni-border)" }}
+                className="card-hover rounded-2xl p-6 relative overflow-hidden cursor-pointer"
+                style={{ background: C.white, border: `1px solid ${C.border}` }}
               >
-                <div
-                  className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl"
-                  style={{ background: p.color }}
-                />
+                <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" style={{ background: p.color }} />
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                  style={{ background: `${p.color}20` }}
+                  style={{ background: `${p.color}18` }}
                 >
                   <Icon name={p.icon} size={24} style={{ color: p.color }} />
                 </div>
@@ -392,19 +386,19 @@ export default function Index() {
                 {p.badge && (
                   <span
                     className="absolute top-4 right-4 text-xs px-2 py-1 rounded-full font-oswald font-semibold"
-                    style={{ background: "var(--uni-orange)", color: "#000" }}
+                    style={{ background: C.blue, color: "#fff" }}
                   >
                     {p.badge}
                   </span>
                 )}
 
-                <h3 className="font-oswald font-bold text-lg mb-2" style={{ color: "#e8f0fe" }}>
+                <h3 className="font-oswald font-bold text-lg mb-2" style={{ color: C.text }}>
                   {p.title}
                 </h3>
-                <p className="text-sm mb-4" style={{ color: "rgba(232,240,254,0.55)" }}>
+                <p className="text-sm mb-4" style={{ color: C.muted }}>
                   {p.desc}
                 </p>
-                <button className="flex items-center gap-2 text-sm font-medium transition-all" style={{ color: p.color }}>
+                <button className="flex items-center gap-2 text-sm font-medium" style={{ color: p.color }}>
                   Подробнее <Icon name="ArrowRight" size={14} />
                 </button>
               </div>
@@ -414,16 +408,16 @@ export default function Index() {
       </section>
 
       {/* ─── TEACHERS ─── */}
-      <section id="teachers" className="py-24 mesh-bg">
+      <section id="teachers" className="py-24" style={{ background: C.white }}>
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: "var(--uni-purple)" }}>
+            <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: C.blue }}>
               Факультет
             </div>
-            <h2 className="section-title text-5xl mb-4" style={{ color: "#e8f0fe" }}>
+            <h2 className="section-title text-5xl mb-4" style={{ color: C.text }}>
               Наши преподаватели
             </h2>
-            <p style={{ color: "rgba(232,240,254,0.5)" }}>
+            <p style={{ color: C.muted }}>
               Эксперты-практики с мировым именем и академическими регалиями
             </p>
           </div>
@@ -432,28 +426,28 @@ export default function Index() {
             {teachers.map((t, i) => (
               <div
                 key={t.name}
-                className="card-hover glass rounded-2xl p-6 text-center"
-                style={{ border: "1px solid var(--uni-border)" }}
+                className="card-hover rounded-2xl p-6 text-center"
+                style={{ background: C.white, border: `1px solid ${C.border}` }}
               >
                 <div
                   className="w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center text-2xl font-oswald font-bold"
                   style={{
                     background: i % 2 === 0
-                      ? "linear-gradient(135deg, var(--uni-cyan), var(--uni-purple))"
-                      : "linear-gradient(135deg, var(--uni-orange), #ff6b9d)",
+                      ? `linear-gradient(135deg, ${C.blue}, ${C.blueLight})`
+                      : `linear-gradient(135deg, ${C.red}, ${C.gold})`,
                     color: "#fff",
                   }}
                 >
                   {t.name.split(" ").map((n) => n[0]).join("")}
                 </div>
-                <h3 className="font-oswald font-semibold text-base mb-1" style={{ color: "#e8f0fe" }}>
+                <h3 className="font-oswald font-semibold text-base mb-1" style={{ color: C.text }}>
                   {t.name}
                 </h3>
-                <p className="text-xs mb-2" style={{ color: "var(--uni-cyan)" }}>{t.role}</p>
-                <p className="text-xs mb-3" style={{ color: "rgba(232,240,254,0.5)" }}>{t.dept}</p>
+                <p className="text-xs mb-2" style={{ color: C.blue }}>{t.role}</p>
+                <p className="text-xs mb-3" style={{ color: C.muted }}>{t.dept}</p>
                 <div
                   className="text-xs px-3 py-1 rounded-full inline-block"
-                  style={{ background: "rgba(139,92,246,0.15)", color: "var(--uni-purple)" }}
+                  style={{ background: "rgba(21,101,192,0.1)", color: C.blue }}
                 >
                   Опыт: {t.exp}
                 </div>
@@ -470,38 +464,35 @@ export default function Index() {
       </section>
 
       {/* ─── ADMISSION ─── */}
-      <section id="admission" className="py-24" style={{ background: "var(--uni-dark)" }}>
+      <section id="admission" className="py-24 mesh-bg">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: "var(--uni-orange)" }}>
+              <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: C.red }}>
                 Поступление
               </div>
-              <h2 className="section-title text-5xl mb-6" style={{ color: "#e8f0fe" }}>
+              <h2 className="section-title text-5xl mb-6" style={{ color: C.text }}>
                 Как поступить<br />
-                <span className="text-gradient-orange">в APEX</span>
+                <span className="text-gradient">в СФУ</span>
               </h2>
               <div className="space-y-4">
                 {[
-                  { step: "01", title: "Выберите программу", desc: "Изучите 120+ направлений и выберите подходящее" },
+                  { step: "01", title: "Выберите программу", desc: "Изучите 150+ направлений и выберите подходящее" },
                   { step: "02", title: "Подайте документы", desc: "Онлайн через личный кабинет или лично в приёмной комиссии" },
                   { step: "03", title: "Пройдите отбор", desc: "Вступительные испытания или ЕГЭ + портфолио" },
                   { step: "04", title: "Получите приглашение", desc: "Зачисление и оформление договора" },
                 ].map((item) => (
                   <div
                     key={item.step}
-                    className="flex gap-4 p-4 rounded-xl glass transition-all"
-                    style={{ border: "1px solid var(--uni-border)" }}
+                    className="flex gap-4 p-4 rounded-xl transition-all"
+                    style={{ background: C.white, border: `1px solid ${C.border}` }}
                   >
-                    <div
-                      className="font-oswald font-bold text-2xl flex-shrink-0 w-10 text-center"
-                      style={{ color: "var(--uni-orange)" }}
-                    >
+                    <div className="font-oswald font-bold text-2xl flex-shrink-0 w-10 text-center" style={{ color: C.blue }}>
                       {item.step}
                     </div>
                     <div>
-                      <div className="font-oswald font-semibold mb-1" style={{ color: "#e8f0fe" }}>{item.title}</div>
-                      <div className="text-sm" style={{ color: "rgba(232,240,254,0.55)" }}>{item.desc}</div>
+                      <div className="font-oswald font-semibold mb-1" style={{ color: C.text }}>{item.title}</div>
+                      <div className="text-sm" style={{ color: C.muted }}>{item.desc}</div>
                     </div>
                   </div>
                 ))}
@@ -509,10 +500,10 @@ export default function Index() {
             </div>
 
             <div
-              className="glass rounded-2xl p-8"
-              style={{ border: "1px solid rgba(245,158,11,0.3)" }}
+              className="rounded-2xl p-8"
+              style={{ background: C.white, border: `2px solid ${C.blue}`, boxShadow: "0 12px 48px rgba(21,101,192,0.12)" }}
             >
-              <h3 className="font-oswald font-bold text-2xl mb-6" style={{ color: "#e8f0fe" }}>
+              <h3 className="font-oswald font-bold text-2xl mb-6" style={{ color: C.text }}>
                 Заявка на поступление
               </h3>
               <div className="space-y-4">
@@ -522,36 +513,25 @@ export default function Index() {
                     type="text"
                     placeholder={ph}
                     className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-all"
-                    style={{
-                      background: "rgba(255,255,255,0.05)",
-                      border: "1px solid var(--uni-border)",
-                      color: "#e8f0fe",
-                    }}
-                    onFocus={(e) => (e.target.style.borderColor = "var(--uni-orange)")}
-                    onBlur={(e) => (e.target.style.borderColor = "var(--uni-border)")}
+                    style={{ background: C.bgAlt, border: `1px solid ${C.border}`, color: C.text }}
+                    onFocus={(e) => (e.target.style.borderColor = C.blue)}
+                    onBlur={(e) => (e.target.style.borderColor = C.border)}
                   />
                 ))}
                 <select
                   className="w-full px-4 py-3 rounded-xl text-sm focus:outline-none"
-                  style={{
-                    background: "rgba(15,22,35,0.9)",
-                    border: "1px solid var(--uni-border)",
-                    color: "rgba(232,240,254,0.6)",
-                  }}
+                  style={{ background: C.bgAlt, border: `1px solid ${C.border}`, color: C.muted }}
                 >
-                  <option value="" style={{ background: "#0f1623" }}>Выберите направление</option>
+                  <option value="">Выберите направление</option>
                   {programs.map((p) => (
-                    <option key={p.title} value={p.title} style={{ background: "#0f1623" }}>{p.title}</option>
+                    <option key={p.title} value={p.title}>{p.title}</option>
                   ))}
                 </select>
-                <button
-                  className="btn-primary w-full py-4 rounded-xl text-base"
-                  style={{ background: "linear-gradient(135deg, var(--uni-orange), #ff6b6b)" }}
-                >
+                <button className="btn-primary w-full py-4 rounded-xl text-base">
                   <span>Отправить заявку</span>
                 </button>
               </div>
-              <p className="text-xs mt-4 text-center" style={{ color: "rgba(232,240,254,0.35)" }}>
+              <p className="text-xs mt-4 text-center" style={{ color: C.muted }}>
                 Приём заявок до 31 июля 2026 года
               </p>
             </div>
@@ -560,13 +540,13 @@ export default function Index() {
       </section>
 
       {/* ─── SCHEDULE ─── */}
-      <section id="schedule" className="py-24 mesh-bg">
+      <section id="schedule" className="py-24" style={{ background: C.white }}>
         <div className="container mx-auto px-6">
           <div className="text-center mb-10">
-            <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: "var(--uni-green)" }}>
+            <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: C.green }}>
               Расписание
             </div>
-            <h2 className="section-title text-5xl mb-4" style={{ color: "#e8f0fe" }}>
+            <h2 className="section-title text-5xl mb-4" style={{ color: C.text }}>
               Занятия и экзамены
             </h2>
           </div>
@@ -574,7 +554,7 @@ export default function Index() {
           <div className="flex justify-center mb-8">
             <div
               className="flex rounded-xl p-1"
-              style={{ background: "var(--uni-card)", border: "1px solid var(--uni-border)" }}
+              style={{ background: C.bgAlt, border: `1px solid ${C.border}` }}
             >
               {(["classes", "exams"] as const).map((tab) => (
                 <button
@@ -582,8 +562,8 @@ export default function Index() {
                   onClick={() => setScheduleTab(tab)}
                   className="px-6 py-2 rounded-lg text-sm font-oswald font-medium transition-all"
                   style={{
-                    background: scheduleTab === tab ? "var(--uni-green)" : "transparent",
-                    color: scheduleTab === tab ? "#000" : "rgba(232,240,254,0.6)",
+                    background: scheduleTab === tab ? C.blue : "transparent",
+                    color: scheduleTab === tab ? "#fff" : C.muted,
                   }}
                 >
                   {tab === "classes" ? "Занятия" : "Экзамены"}
@@ -600,9 +580,9 @@ export default function Index() {
                   onClick={() => setSelectedDay(i)}
                   className="w-12 h-12 rounded-xl text-sm font-oswald font-semibold transition-all"
                   style={{
-                    background: selectedDay === i ? "var(--uni-green)" : "rgba(255,255,255,0.05)",
-                    color: selectedDay === i ? "#000" : "rgba(232,240,254,0.6)",
-                    border: selectedDay === i ? "none" : "1px solid var(--uni-border)",
+                    background: selectedDay === i ? C.blue : C.white,
+                    color: selectedDay === i ? "#fff" : C.muted,
+                    border: `1px solid ${selectedDay === i ? C.blue : C.border}`,
                   }}
                 >
                   {d}
@@ -611,19 +591,12 @@ export default function Index() {
             </div>
           )}
 
-          <div
-            className="glass rounded-2xl overflow-hidden"
-            style={{ border: "1px solid var(--uni-border)" }}
-          >
+          <div className="rounded-2xl overflow-hidden" style={{ border: `1px solid ${C.border}` }}>
             {scheduleTab === "classes" ? (
               <>
                 <div
                   className="grid font-oswald font-semibold text-xs uppercase tracking-wider px-6 py-3"
-                  style={{
-                    gridTemplateColumns: "1fr 2fr 2fr 1fr 1fr",
-                    background: "rgba(16,185,129,0.1)",
-                    color: "var(--uni-green)",
-                  }}
+                  style={{ gridTemplateColumns: "1fr 2fr 2fr 1fr 1fr", background: "rgba(21,101,192,0.07)", color: C.blue }}
                 >
                   {["Время", "Дисциплина", "Преподаватель", "Аудитория", "Группа"].map((h) => (
                     <div key={h}>{h}</div>
@@ -633,21 +606,18 @@ export default function Index() {
                   <div
                     key={i}
                     className="schedule-row grid px-6 py-4 border-t text-sm"
-                    style={{
-                      gridTemplateColumns: "1fr 2fr 2fr 1fr 1fr",
-                      borderColor: "var(--uni-border)",
-                    }}
+                    style={{ gridTemplateColumns: "1fr 2fr 2fr 1fr 1fr", borderColor: C.border, background: i % 2 === 0 ? C.white : C.bg }}
                   >
-                    <div className="font-oswald font-medium" style={{ color: "var(--uni-cyan)" }}>{row.time}</div>
-                    <div style={{ color: "#e8f0fe" }}>{row.subject}</div>
-                    <div style={{ color: "rgba(232,240,254,0.6)" }}>{row.teacher}</div>
+                    <div className="font-oswald font-medium" style={{ color: C.blue }}>{row.time}</div>
+                    <div style={{ color: C.text }}>{row.subject}</div>
+                    <div style={{ color: C.muted }}>{row.teacher}</div>
                     <div
                       className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium w-fit h-fit"
-                      style={{ background: "rgba(0,212,245,0.1)", color: "var(--uni-cyan)" }}
+                      style={{ background: "rgba(21,101,192,0.1)", color: C.blue }}
                     >
                       {row.room}
                     </div>
-                    <div style={{ color: "rgba(232,240,254,0.5)" }}>{row.group}</div>
+                    <div style={{ color: C.muted }}>{row.group}</div>
                   </div>
                 ))}
               </>
@@ -655,11 +625,7 @@ export default function Index() {
               <>
                 <div
                   className="grid font-oswald font-semibold text-xs uppercase tracking-wider px-6 py-3"
-                  style={{
-                    gridTemplateColumns: "1fr 1fr 2fr 2fr 1fr 1fr",
-                    background: "rgba(16,185,129,0.1)",
-                    color: "var(--uni-green)",
-                  }}
+                  style={{ gridTemplateColumns: "1fr 1fr 2fr 2fr 1fr 1fr", background: "rgba(211,47,47,0.06)", color: C.red }}
                 >
                   {["Дата", "Время", "Дисциплина", "Преподаватель", "Аудитория", "Группа"].map((h) => (
                     <div key={h}>{h}</div>
@@ -669,22 +635,19 @@ export default function Index() {
                   <div
                     key={i}
                     className="schedule-row grid px-6 py-4 border-t text-sm"
-                    style={{
-                      gridTemplateColumns: "1fr 1fr 2fr 2fr 1fr 1fr",
-                      borderColor: "var(--uni-border)",
-                    }}
+                    style={{ gridTemplateColumns: "1fr 1fr 2fr 2fr 1fr 1fr", borderColor: C.border, background: i % 2 === 0 ? C.white : C.bg }}
                   >
-                    <div className="font-oswald font-medium" style={{ color: "var(--uni-orange)" }}>{row.date}</div>
-                    <div style={{ color: "var(--uni-green)" }}>{row.time}</div>
-                    <div style={{ color: "#e8f0fe" }}>{row.subject}</div>
-                    <div style={{ color: "rgba(232,240,254,0.6)" }}>{row.teacher}</div>
+                    <div className="font-oswald font-medium" style={{ color: C.red }}>{row.date}</div>
+                    <div style={{ color: C.green }}>{row.time}</div>
+                    <div style={{ color: C.text }}>{row.subject}</div>
+                    <div style={{ color: C.muted }}>{row.teacher}</div>
                     <div
                       className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium w-fit h-fit"
-                      style={{ background: "rgba(245,158,11,0.1)", color: "var(--uni-orange)" }}
+                      style={{ background: "rgba(211,47,47,0.1)", color: C.red }}
                     >
                       {row.room}
                     </div>
-                    <div style={{ color: "rgba(232,240,254,0.5)" }}>{row.group}</div>
+                    <div style={{ color: C.muted }}>{row.group}</div>
                   </div>
                 ))}
               </>
@@ -694,18 +657,18 @@ export default function Index() {
       </section>
 
       {/* ─── STUDENT LIFE ─── */}
-      <section id="life" className="py-24" style={{ background: "var(--uni-dark)" }}>
+      <section id="life" className="py-24 mesh-bg">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center mb-16">
             <div>
-              <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: "var(--uni-purple)" }}>
+              <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: C.blue }}>
                 Кампус
               </div>
-              <h2 className="section-title text-5xl mb-6" style={{ color: "#e8f0fe" }}>
+              <h2 className="section-title text-5xl mb-6" style={{ color: C.text }}>
                 Студенческая<br />
-                <span className="text-gradient">жизнь в APEX</span>
+                <span className="text-gradient">жизнь в СФУ</span>
               </h2>
-              <p style={{ color: "rgba(232,240,254,0.6)", lineHeight: 1.8 }}>
+              <p style={{ color: C.muted, lineHeight: 1.8 }}>
                 Учёба — это только часть истории. Мы создаём среду, где каждый находит своё сообщество, развивает таланты и строит сеть контактов на всю жизнь.
               </p>
             </div>
@@ -713,7 +676,7 @@ export default function Index() {
               src={LECTURE_IMG}
               alt="Студенческая жизнь"
               className="rounded-2xl w-full object-cover"
-              style={{ height: 320, border: "1px solid var(--uni-border)" }}
+              style={{ height: 320, border: `1px solid ${C.border}` }}
             />
           </div>
 
@@ -721,18 +684,18 @@ export default function Index() {
             {lifeBlocks.map((item) => (
               <div
                 key={item.title}
-                className="card-hover glass rounded-2xl p-6 flex gap-4"
-                style={{ border: "1px solid var(--uni-border)" }}
+                className="card-hover rounded-2xl p-6 flex gap-4"
+                style={{ background: C.white, border: `1px solid ${C.border}` }}
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: "rgba(139,92,246,0.15)" }}
+                  style={{ background: "rgba(21,101,192,0.1)" }}
                 >
-                  <Icon name={item.icon} size={22} style={{ color: "var(--uni-purple)" }} />
+                  <Icon name={item.icon} size={22} style={{ color: C.blue }} />
                 </div>
                 <div>
-                  <h3 className="font-oswald font-semibold mb-1" style={{ color: "#e8f0fe" }}>{item.title}</h3>
-                  <p className="text-sm" style={{ color: "rgba(232,240,254,0.55)" }}>{item.desc}</p>
+                  <h3 className="font-oswald font-semibold mb-1" style={{ color: C.text }}>{item.title}</h3>
+                  <p className="text-sm" style={{ color: C.muted }}>{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -741,14 +704,14 @@ export default function Index() {
       </section>
 
       {/* ─── NEWS ─── */}
-      <section id="news" className="py-24 mesh-bg">
+      <section id="news" className="py-24" style={{ background: C.white }}>
         <div className="container mx-auto px-6">
           <div className="flex items-end justify-between mb-14">
             <div>
-              <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: "var(--uni-cyan)" }}>
+              <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: C.blue }}>
                 Новости
               </div>
-              <h2 className="section-title text-5xl" style={{ color: "#e8f0fe" }}>
+              <h2 className="section-title text-5xl" style={{ color: C.text }}>
                 Последние события
               </h2>
             </div>
@@ -761,8 +724,8 @@ export default function Index() {
             {newsItems.map((item) => (
               <div
                 key={item.title}
-                className="card-hover glass rounded-2xl overflow-hidden cursor-pointer"
-                style={{ border: "1px solid var(--uni-border)" }}
+                className="card-hover rounded-2xl overflow-hidden cursor-pointer"
+                style={{ background: C.white, border: `1px solid ${C.border}` }}
               >
                 <div className="relative overflow-hidden" style={{ height: 200 }}>
                   <img
@@ -770,17 +733,17 @@ export default function Index() {
                     alt={item.title}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(8,13,22,0.8), transparent)" }} />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(13,27,46,0.5), transparent)" }} />
                   <span
                     className="absolute top-4 left-4 text-xs px-3 py-1 rounded-full font-oswald font-semibold"
-                    style={{ background: "var(--uni-cyan)", color: "#000" }}
+                    style={{ background: C.blue, color: "#fff" }}
                   >
                     {item.tag}
                   </span>
                 </div>
                 <div className="p-5">
-                  <div className="text-xs mb-3" style={{ color: "rgba(232,240,254,0.4)" }}>{item.date}</div>
-                  <h3 className="font-oswald font-semibold text-base leading-snug" style={{ color: "#e8f0fe" }}>
+                  <div className="text-xs mb-3" style={{ color: C.muted }}>{item.date}</div>
+                  <h3 className="font-oswald font-semibold text-base leading-snug" style={{ color: C.text }}>
                     {item.title}
                   </h3>
                 </div>
@@ -791,38 +754,38 @@ export default function Index() {
       </section>
 
       {/* ─── CONTACTS ─── */}
-      <section id="contacts" className="py-24" style={{ background: "var(--uni-dark)" }}>
+      <section id="contacts" className="py-24 mesh-bg">
         <div className="container mx-auto px-6">
           <div className="text-center mb-14">
-            <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: "var(--uni-orange)" }}>
+            <div className="text-xs font-oswald tracking-widest mb-4 uppercase" style={{ color: C.blue }}>
               Контакты
             </div>
-            <h2 className="section-title text-5xl mb-4" style={{ color: "#e8f0fe" }}>
+            <h2 className="section-title text-5xl mb-4" style={{ color: C.text }}>
               Свяжитесь с нами
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {[
-              { icon: "MapPin", title: "Адрес", lines: ["Москва, пр. Университетский, 15", "Корпус А, 1 этаж"], color: "var(--uni-cyan)" },
-              { icon: "Phone", title: "Телефон", lines: ["+7 (495) 123-45-67", "Пн–Пт, 9:00–18:00"], color: "var(--uni-green)" },
-              { icon: "Mail", title: "Email", lines: ["info@apex-uni.ru", "admission@apex-uni.ru"], color: "var(--uni-purple)" },
-              { icon: "Clock", title: "Режим работы", lines: ["Пн–Пт: 8:00–20:00", "Сб: 9:00–16:00"], color: "var(--uni-orange)" },
+              { icon: "MapPin", title: "Адрес", lines: ["г. Красноярск, пр. Свободный, 79", "Главный корпус, 1 этаж"], color: C.blue },
+              { icon: "Phone", title: "Телефон", lines: ["+7 (391) 206-26-26", "Пн–Пт, 9:00–18:00"], color: C.green },
+              { icon: "Mail", title: "Email", lines: ["info@sfu-kras.ru", "admission@sfu-kras.ru"], color: "#7c3aed" },
+              { icon: "Clock", title: "Режим работы", lines: ["Пн–Пт: 8:00–20:00", "Сб: 9:00–16:00"], color: C.red },
             ].map((item) => (
               <div
                 key={item.title}
-                className="card-hover glass rounded-2xl p-6"
-                style={{ border: "1px solid var(--uni-border)" }}
+                className="card-hover rounded-2xl p-6"
+                style={{ background: C.white, border: `1px solid ${C.border}` }}
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                  style={{ background: `${item.color}20` }}
+                  style={{ background: `${item.color}18` }}
                 >
                   <Icon name={item.icon} size={22} style={{ color: item.color }} />
                 </div>
-                <h3 className="font-oswald font-semibold mb-2" style={{ color: "#e8f0fe" }}>{item.title}</h3>
+                <h3 className="font-oswald font-semibold mb-2" style={{ color: C.text }}>{item.title}</h3>
                 {item.lines.map((l) => (
-                  <p key={l} className="text-sm" style={{ color: "rgba(232,240,254,0.55)" }}>{l}</p>
+                  <p key={l} className="text-sm" style={{ color: C.muted }}>{l}</p>
                 ))}
               </div>
             ))}
@@ -831,27 +794,25 @@ export default function Index() {
           <div
             className="rounded-2xl p-10 text-center relative overflow-hidden"
             style={{
-              background: "linear-gradient(135deg, rgba(0,212,245,0.12), rgba(139,92,246,0.12))",
-              border: "1px solid rgba(0,212,245,0.2)",
+              background: `linear-gradient(135deg, ${C.blue}, ${C.blueLight})`,
             }}
           >
             <div
               className="absolute inset-0"
-              style={{
-                background: "radial-gradient(ellipse at center, rgba(0,212,245,0.06) 0%, transparent 70%)",
-              }}
+              style={{ background: "radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 70%)" }}
             />
-            <h3 className="section-title text-4xl mb-4 relative z-10" style={{ color: "#e8f0fe" }}>
+            <h3 className="section-title text-4xl mb-4 relative z-10" style={{ color: "#fff" }}>
               Готов к поступлению?
             </h3>
-            <p className="mb-8 relative z-10" style={{ color: "rgba(232,240,254,0.6)" }}>
+            <p className="mb-8 relative z-10" style={{ color: "rgba(255,255,255,0.8)" }}>
               Подай заявку онлайн за 5 минут — и мы перезвоним в течение рабочего дня
             </p>
             <button
-              className="btn-primary px-10 py-4 rounded-xl text-base relative z-10"
+              className="relative z-10 px-10 py-4 rounded-xl text-base font-oswald font-semibold transition-all"
+              style={{ background: "#fff", color: C.blue, boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}
               onClick={() => scrollTo("admission")}
             >
-              <span>Подать заявку сейчас</span>
+              Подать заявку сейчас
             </button>
           </div>
         </div>
@@ -860,34 +821,32 @@ export default function Index() {
       {/* ─── FOOTER ─── */}
       <footer
         className="py-10 border-t"
-        style={{ background: "rgba(8,13,22,0.95)", borderColor: "var(--uni-border)" }}
+        style={{ background: C.text, borderColor: "rgba(255,255,255,0.1)" }}
       >
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div
                 className="w-8 h-8 rounded-lg flex items-center justify-center font-oswald font-bold text-sm"
-                style={{ background: "linear-gradient(135deg, var(--uni-cyan), var(--uni-purple))", color: "#fff" }}
+                style={{ background: `linear-gradient(135deg, ${C.blue}, ${C.blueLight})`, color: "#fff" }}
               >
-                A
+                С
               </div>
-              <span className="font-oswald font-bold" style={{ color: "var(--uni-cyan)" }}>
-                УНИВЕРСИТЕТ APEX
-              </span>
+              <div>
+                <div className="font-oswald font-bold text-sm" style={{ color: "#fff" }}>
+                  СИБИРСКИЙ ФЕДЕРАЛЬНЫЙ УНИВЕРСИТЕТ
+                </div>
+              </div>
             </div>
-            <p className="text-sm" style={{ color: "rgba(232,240,254,0.35)" }}>
-              © 2026 Университет APEX. Все права защищены.
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>
+              © 2026 СФУ. Все права защищены.
             </p>
             <div className="flex gap-4">
               {["Instagram", "Linkedin", "Youtube"].map((soc) => (
                 <button
                   key={soc}
                   className="w-9 h-9 rounded-xl flex items-center justify-center transition-all hover:scale-110"
-                  style={{
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid var(--uni-border)",
-                    color: "rgba(232,240,254,0.5)",
-                  }}
+                  style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.5)" }}
                 >
                   <Icon name={soc} size={16} fallback="ExternalLink" />
                 </button>
