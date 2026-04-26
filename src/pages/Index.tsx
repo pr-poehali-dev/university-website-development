@@ -24,12 +24,12 @@ const stats = [
 ];
 
 const programs = [
-  { icon: "Code", title: "Информационные технологии", desc: "Программирование, ИИ, кибербезопасность", badge: "Топ выбор", color: "var(--uni-cyan)" },
-  { icon: "TrendingUp", title: "Экономика и менеджмент", desc: "Бизнес, финансы, маркетинг, MBA", badge: "", color: "var(--uni-purple)" },
+  { icon: "Code", title: "Информационные технологии", desc: "Программирование, ИИ, кибербезопасность", badge: "Топ выбор", color: "var(--uni-blue)" },
+  { icon: "TrendingUp", title: "Экономика и менеджмент", desc: "Бизнес, финансы, маркетинг, MBA", badge: "", color: "#7c3aed" },
   { icon: "Microscope", title: "Науки о жизни", desc: "Биотехнологии, медицина, фармацевтика", badge: "Новая", color: "var(--uni-green)" },
-  { icon: "Palette", title: "Дизайн и медиа", desc: "Графика, UX/UI, медиапроизводство", badge: "", color: "var(--uni-orange)" },
-  { icon: "Scale", title: "Юриспруденция", desc: "Международное право, корпоративное право", badge: "", color: "#ff6b9d" },
-  { icon: "Globe", title: "Международные отношения", desc: "Дипломатия, политология, глобалистика", badge: "", color: "#34d399" },
+  { icon: "Palette", title: "Дизайн и медиа", desc: "Графика, UX/UI, медиапроизводство", badge: "", color: "var(--uni-gold)" },
+  { icon: "Scale", title: "Юриспруденция", desc: "Международное право, корпоративное право", badge: "", color: "var(--uni-red)" },
+  { icon: "Globe", title: "Международные отношения", desc: "Дипломатия, политология, глобалистика", badge: "", color: "#0891b2" },
 ];
 
 const teachers = [
@@ -40,7 +40,7 @@ const teachers = [
 ];
 
 const newsItems = [
-  { date: "22 апреля 2026", tag: "Наука", title: "APEX вошёл в топ-10 лучших университетов России по версии Forbes", img: STUDENTS_IMG },
+  { date: "22 апреля 2026", tag: "Наука", title: "СФУ вошёл в топ-10 лучших университетов России по версии Forbes", img: STUDENTS_IMG },
   { date: "18 апреля 2026", tag: "События", title: "Открытый день: 5 мая приглашаем будущих студентов на экскурсию", img: LECTURE_IMG },
   { date: "10 апреля 2026", tag: "Спорт", title: "Команда по робототехнике завоевала золото на чемпионате РФ", img: HERO_IMG },
 ];
@@ -104,7 +104,7 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen font-golos" style={{ background: "var(--uni-dark)", color: "#e8f0fe" }}>
+    <div className="min-h-screen font-golos" style={{ background: "#f0f4f8", color: "var(--uni-text)" }}>
 
       {/* ─── NAVBAR ─── */}
       <nav
